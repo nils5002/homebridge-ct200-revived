@@ -40,7 +40,9 @@ export class AwaySwitch {
     async setAwayStatus(value: CharacteristicValue) {
         const command = value ? '"true"' : '"false"';
         setEndpoint(EP_AWAY, command).then(response => {
-            if (response['status'] === 'ok') {
+            if (response === undefined) {
+                this.platform.log.error('Received invalid response when setting away mode!');
+            } else if (response['status'] === 'ok') {
                 // Update zone temperatures after changing state
                 globalState.zones.forEach((zone) => {
                     getEndpoint(EP_BZ + zone.id + EP_BZ_TARGET_TEMP);

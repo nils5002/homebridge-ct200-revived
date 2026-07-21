@@ -6,4 +6,4 @@ export const PLATFORM_NAME = 'CT200';
 /**
  * This must match the name of your plugin as defined the package.json
  */
-export const PLUGIN_NAME = 'homebridge-ct200';
+export const PLUGIN_NAME = 'homebridge-ct200-revived';

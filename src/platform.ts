@@ -158,6 +158,8 @@ export class CT200Platform implements DynamicPlatformPlugin {
             connectAPI(config['serial'], config['access'], config['password']).then(() => {
                 this.log.debug('Finished initializing platform:', this.config.platform);
                 this.discoverDevices();
+            }).catch((e) => {
+                this.log.error('Failed to initialize platform: ' + e);
             });
         });
     }
