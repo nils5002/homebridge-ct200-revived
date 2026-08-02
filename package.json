@@ -1,7 +1,7 @@
 {
     "displayName": "Homebridge CT200 Revived",
     "name": "homebridge-ct200-revived",
-    "version": "2.3.0",
+    "version": "2.3.5",
     "description": "Homebridge plugin to control Bosch CT200 smart thermostat. Maintained fork of homebridge-ct200 with Node 24 and Homebridge 2.0 support.",
     "license": "MIT",
     "author": "Domas Kalinauskas",
@@ -10,11 +10,12 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/nils5002/homebridge-ct200-revived.git"
+        "url": "git+https://github.com/nils5002/homebridge-ct200-revived.git"
     },
     "bugs": {
         "url": "https://github.com/nils5002/homebridge-ct200-revived/issues"
     },
+    "homepage": "https://github.com/nils5002/homebridge-ct200-revived#readme",
     "engines": {
         "node": ">=20.17.0",
         "homebridge": "^1.3.5 || ^2.0.0-beta.0 || ^2.0.0"
