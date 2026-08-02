@@ -2,7 +2,7 @@ import { API, Characteristic, DynamicPlatformPlugin, Logger, PlatformAccessory, 
 import { PLATFORM_NAME, PLUGIN_NAME } from './settings';
 import { Thermostat } from './thermostat';
 import { AwaySwitch } from './switch';
-import { EP_ZONES, EP_LOCALIZATION, EP_HUMIDITY, EP_AWAY, EP_BZ_MODE, EP_BZ_TARGET_TEMP } from './endpoints';
+import { EP_ZONES, EP_LOCALIZATION, EP_HUMIDITY, EP_AWAY, EP_BZ, EP_BZ_MODE, EP_BZ_TARGET_TEMP } from './endpoints';
 import { connectAPI, getEndpoint } from './client';
 
 // All the info needed to describe a Zone
@@ -238,11 +238,8 @@ export class CT200Platform implements DynamicPlatformPlugin {
         // Get initial zone state
         getEndpoint(EP_ZONES);
 
-        // Get initial humidity
-        getEndpoint(EP_HUMIDITY);
-
-        // Get localization option
-        getEndpoint(EP_LOCALIZATION);
+        // Keep HomeKit reads cache-only; refresh these values at a controlled pace.
+        this.refreshCachedAccessoryState();
 
         // Configure zone info refresh
         let zoneInterval: number = 'zoneInterval' in this.config ? this.config['zoneInterval'] : 2;
@@ -262,9 +259,18 @@ export class CT200Platform implements DynamicPlatformPlugin {
             auxInterval = 1;
         }
         setInterval(() => {
-            globalLogger.debug('Updating humidity and localization status');
-            getEndpoint(EP_HUMIDITY);
-            getEndpoint(EP_LOCALIZATION);
+            globalLogger.debug('Updating humidity, localization, target and away status');
+            this.refreshCachedAccessoryState();
         }, 1000 * 60 * auxInterval);
+    }
+
+    private refreshCachedAccessoryState() {
+        getEndpoint(EP_HUMIDITY);
+        getEndpoint(EP_LOCALIZATION);
+        getEndpoint(EP_AWAY);
+        globalState.zones.forEach((zone) => {
+            getEndpoint(EP_BZ + zone.id + EP_BZ_TARGET_TEMP);
+            getEndpoint(EP_BZ + zone.id + EP_BZ_MODE);
+        });
     }
 }
