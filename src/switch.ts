@@ -33,7 +33,6 @@ export class AwaySwitch {
     }
 
     async getAwayStatus(): Promise<CharacteristicValue> {
-        getEndpoint(EP_AWAY);
         return globalState.away.state;
     }
 
