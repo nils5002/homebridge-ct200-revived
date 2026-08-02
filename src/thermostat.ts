@@ -72,8 +72,6 @@ export class Thermostat {
     }
 
     async getTargetTemp(): Promise<CharacteristicValue> {
-        getEndpoint(EP_BZ + this.id + EP_BZ_TARGET_TEMP);
-
         const zone = globalState.zones.get(this.id);
         if (zone) {
             return zone.wantedTemp;
@@ -107,8 +105,6 @@ export class Thermostat {
     }
 
     async getTargetState(): Promise<CharacteristicValue> {
-        getEndpoint(EP_BZ + this.id + EP_BZ_MODE);
-
         const zone = globalState.zones.get(this.id);
         if (zone) {
             return zone.mode;
