@@ -9,6 +9,13 @@ This is a maintained fork of [homebridge-ct200](https://github.com/lynxcs/homebr
 - **Homebridge 2.0 support**.
 - **No more crash loops**: connection failures are retried every 30 seconds instead of exiting the process.
 - **Survives connection drops**: automatic reconnect is re-enabled after login and responses are routed correctly after a reconnect.
+- **More stable CT200 polling**: Bosch XMPP requests are serialized, unhealthy streams are rebuilt, and HomeKit reads use cached values instead of creating request spikes.
+- **Controlled cache refreshes**: humidity, localization, away status, target temperatures, and zone modes are refreshed on the configured interval.
+
+### Latest release
+Version 2.3.5 focuses on CT200 stability: serialized Bosch XMPP requests, automatic client rebuilds for unhealthy streams, and controlled cache refreshes for HomeKit values.
+
+See [CHANGELOG.md](CHANGELOG.md) and [RELEASE_NOTES.md](RELEASE_NOTES.md) for details.
 
 ### Migrating from homebridge-ct200
 Uninstall `homebridge-ct200`, install `homebridge-ct200-revived`. Your existing `config.json` platform block keeps working unchanged (the platform name is still `CT200`). Accessories are re-created under the new plugin; if you had them assigned to rooms/automations in the Home app you may need to reassign them once.
